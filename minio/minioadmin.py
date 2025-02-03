@@ -781,7 +781,7 @@ class MinioAdmin:
         if policy and policy_file:
             raise ValueError(
                 "only one of policy or policy_file may be specified")
-        data = {
+        data: dict[str, Any] = {
             "status": "enabled",
             "accessKey": access_key,
             "secretKey": secret_key,
@@ -790,11 +790,11 @@ class MinioAdmin:
             data["name"] = name
         if description:
             data["description"] = description
-        if policy:
-            data["policy"] = policy
         if policy_file:
             with open(policy_file, encoding="utf-8") as file:
                 data["policy"] = json.load(file)
+        if policy:
+            data["policy"] = policy
         if expiration:
             data["expiration"] = expiration
         if status:
@@ -831,7 +831,7 @@ class MinioAdmin:
         if policy_file and policy:
             raise ValueError(
                 "only one of policy_file or policy may be specified")
-        data = {}
+        data: dict[str, Any] = {}
         if secret_key:
             data["newSecretKey"] = secret_key
         if name:
